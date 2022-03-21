@@ -13,7 +13,7 @@ export async function initContract(ccp: Connection, userId: string, gwOption?: G
         identity: userId,
         discovery: {
           enabled: true,
-          asLocalhost: true,
+          asLocalhost: false,
         },
       };
     }

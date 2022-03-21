@@ -86,6 +86,12 @@ async function enrollUser(ccp: Connection, username: string, password: string) {
   try {
     const identity = await ccp.walletObj.get(username);
     if(identity) {
+      // recheck if this user belongs to current connected org
+      if(ccp.mspid !== identity.mspId) {
+        const emsg = `user[${username}][${identity.mspId}] doesn't belong to connected peer[${ccp.mspid}]`;
+        console.error(emsg);
+        throw new Error(emsg);
+      }
       console.log(`user[${username}] has already been enrolled`);
       return;
     }
